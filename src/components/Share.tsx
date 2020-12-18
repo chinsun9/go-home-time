@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Power3, TimelineLite } from 'gsap';
 import CSSPlugin from 'gsap/CSSPlugin';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const C = CSSPlugin;
 
 const baseURL = 'https://chinsun9.github.io/go-home-time/';
