@@ -1,0 +1,22 @@
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.timer__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 30px;
+  font-size: 4em;
+  font-weight: bolder;
+  color: white;
+  text-shadow: 0 0 black;
+}
+
+.timer__content.over {
+  color: black;
+}
