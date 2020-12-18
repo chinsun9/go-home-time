@@ -1,0 +1,12 @@
+.App {
+  background-image: url("./assets/sarah-wayte-WVIkqpoKz1I-unsplash.jpg");
+  height: 100vh;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: white;
+  background-position: center;
+}
