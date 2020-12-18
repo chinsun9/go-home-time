@@ -1,0 +1,13 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  align-items: center;
+}
+
+.home > span {
+  text-shadow: 0 0 black;
+
+  font-weight: 600;
+}
