@@ -5,7 +5,12 @@ import Share from './Share';
 function About() {
   return (
     <div className="about">
-      <p>집이 가고 싶은 사람들을 위한 타이머</p>
+      <p>
+        집이 가고 싶은 사람들을 위한 타이머
+        <br />
+        <br />이 타이머는 로컬에서 setTimeout을 통해 타이머를 표현합니다. 따라서
+        시간이 지남에 따라 오차가 생길 수 있습니다.
+      </p>
 
       <Share />
     </div>
