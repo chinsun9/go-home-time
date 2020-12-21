@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/go-home-time/static/css/main.2aec33a3.chunk.css",
-    "main.js": "/go-home-time/static/js/main.74f4f2d3.chunk.js",
-    "main.js.map": "/go-home-time/static/js/main.74f4f2d3.chunk.js.map",
+    "main.css": "/go-home-time/static/css/main.ee505041.chunk.css",
+    "main.js": "/go-home-time/static/js/main.d74bddb5.chunk.js",
+    "main.js.map": "/go-home-time/static/js/main.d74bddb5.chunk.js.map",
     "runtime-main.js": "/go-home-time/static/js/runtime-main.b04cd4f0.js",
     "runtime-main.js.map": "/go-home-time/static/js/runtime-main.b04cd4f0.js.map",
     "static/js/2.5208cf62.chunk.js": "/go-home-time/static/js/2.5208cf62.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.36b3fff9.chunk.js": "/go-home-time/static/js/3.36b3fff9.chunk.js",
     "static/js/3.36b3fff9.chunk.js.map": "/go-home-time/static/js/3.36b3fff9.chunk.js.map",
     "index.html": "/go-home-time/index.html",
-    "static/css/main.2aec33a3.chunk.css.map": "/go-home-time/static/css/main.2aec33a3.chunk.css.map",
+    "static/css/main.ee505041.chunk.css.map": "/go-home-time/static/css/main.ee505041.chunk.css.map",
     "static/js/2.5208cf62.chunk.js.LICENSE.txt": "/go-home-time/static/js/2.5208cf62.chunk.js.LICENSE.txt",
     "static/media/App.css": "/go-home-time/static/media/sarah-wayte-WVIkqpoKz1I-unsplash.4620ed8a.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.b04cd4f0.js",
     "static/js/2.5208cf62.chunk.js",
-    "static/css/main.2aec33a3.chunk.css",
-    "static/js/main.74f4f2d3.chunk.js"
+    "static/css/main.ee505041.chunk.css",
+    "static/js/main.d74bddb5.chunk.js"
   ]
 }
