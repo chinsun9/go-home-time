@@ -10,6 +10,16 @@ function About() {
         <br />
         <br />이 타이머는 로컬에서 setTimeout을 통해 타이머를 표현합니다. 따라서
         시간이 지남에 따라 오차가 생길 수 있습니다.
+        <br />
+        <br />
+        source code here :{' '}
+        <a
+          href="https://github.com/chinsun9/go-home-time"
+          target="_blank"
+          rel="noreferrer"
+        >
+          github repo
+        </a>
       </p>
 
       <Share />

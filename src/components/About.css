@@ -13,3 +13,12 @@
 .about p {
   line-height: 1.5;
 }
+
+.about a {
+  color: rgb(210, 234, 255);
+  transition: 0.4s all ease;
+}
+
+.about a:hover {
+  color: rgb(89, 178, 255);
+}
