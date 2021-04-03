@@ -47,10 +47,6 @@ function Home({ isDefault = false }: Props) {
         'hh:mm'
       );
     } else {
-      if (!flag) {
-        return <></>;
-      }
-
       hh = Number(time.substr(0, 2));
       mm = Number(time.substr(2, 2));
       endTime = moment(`${hh}:${mm}`, 'hh:mm');
@@ -60,8 +56,11 @@ function Home({ isDefault = false }: Props) {
 
     const { hour, min, sec } = convertS2HMS(diffSec);
 
+    console.log(diffSec);
+
     // -43200초 === 12시간
     if (diffSec < 0 && diffSec > -43200) {
+      console.log(123);
       return (
         <Timer
           hh={Math.abs(hour)}
@@ -73,7 +72,7 @@ function Home({ isDefault = false }: Props) {
     }
 
     if (diffSec < 0) {
-      // console.info('새벽에 근무하는 사람들을 위한..');
+      // console.info('새벽에 근무하는 사람들을 위한..1');
 
       const diffSec2 = endTime.clone().add(1, 'd').diff(now, 'seconds');
 
@@ -81,8 +80,24 @@ function Home({ isDefault = false }: Props) {
       return <Timer hh={hour2} mm={min2} ss={sec2} />;
     }
 
+    if (diffSec > 43200) {
+      // console.info('새벽에 근무하는 사람들을 위한..2');
+
+      const diffSec2 = endTime.clone().add(-1, 'd').diff(now, 'seconds');
+
+      const { hour: hour2, min: min2, sec: sec2 } = convertS2HMS(diffSec2);
+      return (
+        <Timer
+          hh={Math.abs(hour2)}
+          mm={Math.abs(min2)}
+          ss={Math.abs(sec2)}
+          isOver
+        />
+      );
+    }
+
     return <Timer hh={hour} mm={min} ss={sec} />;
-  }, [convertS2HMS, flag, isDefault, time]);
+  }, [convertS2HMS, isDefault, time]);
 
   useEffect(() => {
     // 초기화
