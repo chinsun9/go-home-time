@@ -1,5 +1,5 @@
 import './Share.css';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Power3, TimelineLite } from 'gsap';
 import CSSPlugin from 'gsap/CSSPlugin';
 
@@ -10,15 +10,21 @@ const baseURL = 'https://chinsun9.github.io/go-home-time/';
 
 function Share() {
   const [shareLink, setShareLink] = useState(baseURL);
-  const [isEditAble, setIsEditAble] = useState(false);
+  const [isEditAbleMsg, setIsEditAbleMsg] = useState(false);
+  const [isEditAbleTime, setIsEditAbleTime] = useState(false);
   const [time, setTime] = useState('18:00');
+  const [msg, setMsg] = useState('');
   const [isAnimate, setIsAnimate] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const onCheckboxChangeHandler = () => {
-    setIsEditAble(!isEditAble);
+  const onTimeCheckboxChangeHandler = () => {
+    setIsEditAbleTime(!isEditAbleTime);
+  };
+
+  const onMsgCheckboxChangeHandler = () => {
+    setIsEditAbleMsg(!isEditAbleMsg);
   };
 
   const onLinkClickHandler = (
@@ -56,8 +62,21 @@ function Share() {
   const onTimeChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     setTime(inputValue);
-    setShareLink(baseURL + inputValue.replace(':', ''));
   };
+
+  const onMsgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setMsg(inputValue);
+  };
+
+  useEffect(() => {
+    let shareUrl = baseURL + time.replace(':', '');
+    shareUrl =
+      isEditAbleMsg && msg.length > 1
+        ? `${shareUrl}?m=${btoa(encodeURI(msg))}`
+        : shareUrl;
+    setShareLink(shareUrl);
+  }, [time, msg, isEditAbleMsg]);
 
   return (
     <div className="share">
@@ -76,27 +95,37 @@ function Share() {
         </div>
       </div>
       <div className="share__checkbox">
-        <label htmlFor="able">
+        <label htmlFor="ableTime">
           <input
             type="checkbox"
-            name="able"
-            id="able"
-            checked={isEditAble}
-            onChange={onCheckboxChangeHandler}
+            name="ableTime"
+            id="ableTime"
+            checked={isEditAbleTime}
+            onChange={onTimeCheckboxChangeHandler}
           />
           <span>퇴근시간</span>
         </label>
 
-        {isEditAble && (
-          <input
-            type="time"
-            id="appt"
-            name="appt"
-            value={time}
-            onChange={onTimeChangeHandler}
-          />
+        {isEditAbleTime && (
+          <input type="time" value={time} onChange={onTimeChangeHandler} />
         )}
-        {/* {time} */}
+      </div>
+
+      <div className="share__checkbox">
+        <label htmlFor="ableMsg">
+          <input
+            type="checkbox"
+            name="ableMsg"
+            id="ableMsg"
+            checked={isEditAbleMsg}
+            onChange={onMsgCheckboxChangeHandler}
+          />
+          <span>메시지</span>
+        </label>
+
+        {isEditAbleMsg && (
+          <input type="text" value={msg} onChange={onMsgChangeHandler} />
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import './Timer.css';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
   hh: number;
@@ -16,6 +17,7 @@ function Timer({ hh, mm, ss, isOver }: Props) {
   const [minutes, setMinutes] = useState(mm);
   const [seconds, setSeconds] = useState(ss);
   const [isTimeOver, setIsTimeOver] = useState(isOver);
+  const { location } = useHistory();
 
   const setPadding = useCallback((value: number) => {
     return value.toString().padStart(2, '0');
@@ -72,7 +74,13 @@ function Timer({ hh, mm, ss, isOver }: Props) {
         <span>:</span>
         <span className="timer__sec">{setPadding(seconds)}</span>
       </div>
-      {isTimeOver ? <h2>퇴근합시다!</h2> : null}
+      {isTimeOver ? (
+        <h2>
+          {location.search.length > 3
+            ? decodeURI(atob(location.search.substr(3)))
+            : `퇴근합시다!`}
+        </h2>
+      ) : null}
     </div>
   );
 }
