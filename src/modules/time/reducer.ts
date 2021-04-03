@@ -21,7 +21,7 @@ const timeReducer = createReducer<TimeState, TimeAction>(initialState, {
       return { ...state, flag: true, time: 'invalid' };
     }
 
-    if (stringTime.length < 4) {
+    if (time.length < 4) {
       newTime = `${stringTime.padEnd(4, '0')}`;
     }
 
