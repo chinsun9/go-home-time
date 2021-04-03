@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import './Home.css';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import moment from 'moment';
 import Timer from './Timer';
@@ -20,6 +20,8 @@ function Home({ isDefault = false }: Props) {
   const { input } = match?.params as MatchParams;
   const { initTime } = useTimeActions();
   const { flag, time } = useTime();
+  const [toggleState, setToggleState] = useState(false);
+  const [viewState, setViewState] = useState<JSX.Element>();
 
   const convertS2HMS = useCallback((seconds: number) => {
     const hour = parseInt(`${seconds / 3600}`, 10);
@@ -89,11 +91,29 @@ function Home({ isDefault = false }: Props) {
     }
   }, [flag, initTime, input]);
 
+  // 10분마다 시간 동기화
+  useEffect(() => {
+    const sto = setTimeout(() => {
+      console.log(`refresh`);
+      setToggleState((prev) => !prev);
+      setViewState(viewTimer());
+    }, 600000);
+
+    return () => {
+      clearTimeout(sto);
+    };
+  }, [toggleState, viewState, viewTimer]);
+
+  // 최초 타이머 초기화
+  useEffect(() => {
+    setViewState(viewTimer());
+  }, [viewTimer]);
+
   return (
     <div className="home">
       <span>퇴근시간 {time === 'invalid' ? input : time} 까지...</span>
 
-      {viewTimer()}
+      {viewState}
     </div>
   );
 }
