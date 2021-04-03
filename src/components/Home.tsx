@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import './Home.css';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import moment from 'moment';
 import Timer from './Timer';
@@ -15,52 +15,42 @@ type Props = {
   isDefault?: boolean;
 };
 
-function Home({ isDefault }: Props) {
-  const now = moment();
-  let endTime;
-
+function Home({ isDefault = false }: Props) {
   const match = useRouteMatch<MatchParams>();
   const { input } = match?.params as MatchParams;
-
   const { initTime } = useTimeActions();
   const { flag, time } = useTime();
 
-  useEffect(() => {
-    if (!flag && input) {
-      initTime(input);
-    }
-  }, [flag, initTime, input]);
-
-  const convertS2HMS = (seconds: number) => {
+  const convertS2HMS = useCallback((seconds: number) => {
     const hour = parseInt(`${seconds / 3600}`, 10);
     const min = parseInt(`${(seconds % 3600) / 60}`, 10);
     const sec = Math.floor(seconds % 60);
 
     return { hour, min, sec };
-  };
+  }, []);
 
-  const viewTimer = () => {
+  const viewTimer = useCallback((): JSX.Element => {
+    if (time === 'invalid') {
+      return <h1 className="wow">실험 정신이 대단하군요..!</h1>;
+    }
+
     let hh = 0;
     let mm = 0;
+    let endTime;
+    const now = moment();
 
     if (isDefault) {
-      // console.info(time);
       endTime = moment(
         `${Number(time.substr(0, 2))}:${Number(time.substr(2, 2))}`,
         'hh:mm'
       );
     } else {
-      if (isNaN(Number(input)) || input.length > 4 || input.length === 3) {
-        // console.info(`invaild`);
-        return null;
+      if (!flag) {
+        return <></>;
       }
 
-      hh = Number(input.substr(0, 2));
-
-      if (input.length === 4) {
-        mm = Number(input.substr(2, 2));
-      }
-
+      hh = Number(time.substr(0, 2));
+      mm = Number(time.substr(2, 2));
       endTime = moment(`${hh}:${mm}`, 'hh:mm');
     }
 
@@ -79,6 +69,7 @@ function Home({ isDefault }: Props) {
         />
       );
     }
+
     if (diffSec < 0) {
       // console.info('새벽에 근무하는 사람들을 위한..');
 
@@ -89,11 +80,18 @@ function Home({ isDefault }: Props) {
     }
 
     return <Timer hh={hour} mm={min} ss={sec} />;
-  };
+  }, [convertS2HMS, flag, isDefault, time]);
+
+  useEffect(() => {
+    // 초기화
+    if (!flag && input) {
+      initTime(input);
+    }
+  }, [flag, initTime, input]);
 
   return (
     <div className="home">
-      <span>퇴근시간 {time} 까지...</span>
+      <span>퇴근시간 {time === 'invalid' ? input : time} 까지...</span>
 
       {viewTimer()}
     </div>

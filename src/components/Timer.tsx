@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import './Timer.css';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 type Props = {
   hh: number;
@@ -9,14 +8,28 @@ type Props = {
   isOver?: boolean;
 };
 
+/**
+ * 남은 시간을 넘겨주면 표시해 주는 컴포넌트
+ */
 function Timer({ hh, mm, ss, isOver }: Props) {
-  //
-
   const [hours, setHours] = useState(hh);
   const [minutes, setMinutes] = useState(mm);
   const [seconds, setSeconds] = useState(ss);
   const [isTimeOver, setIsTimeOver] = useState(isOver);
 
+  const setPadding = useCallback((value: number) => {
+    return value.toString().padStart(2, '0');
+  }, []);
+
+  // 새로 값 들어오면 초기화
+  useEffect(() => {
+    // console.info(`timer rerender`);
+    setHours(hh);
+    setMinutes(mm);
+    setSeconds(ss);
+  }, [hh, mm, ss]);
+
+  // 타이머
   useEffect(() => {
     const interval = -1;
     const countdown = setInterval(() => {
@@ -50,15 +63,9 @@ function Timer({ hh, mm, ss, isOver }: Props) {
     };
   }, [minutes, seconds, hours, isTimeOver]);
 
-  const setPadding = (value: number) => {
-    const padding = '00';
-
-    return (padding + value).substr(-2);
-  };
-
   return (
     <div className="timer">
-      <div className={`timer__content ${isTimeOver ? 'over' : ''}`}>
+      <div className={`timer__content${isTimeOver ? ' over' : ''}`}>
         <span className="timer__hour">{setPadding(hours)}</span>
         <span>:</span>
         <span className="timer__min">{setPadding(minutes)}</span>
