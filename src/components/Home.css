@@ -11,3 +11,9 @@
 
   font-weight: 600;
 }
+
+.home .wow {
+  margin-top: 40px;
+  background-color: rgba(0, 0, 0, 0.486);
+  padding: 10px;
+}
