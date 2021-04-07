@@ -38,7 +38,8 @@ function Timer({ hh, mm, ss, isOver }: Props) {
     setHours(hh);
     setMinutes(mm);
     setSeconds(ss);
-  }, [hh, mm, ss]);
+    setIsTimeOver(isOver);
+  }, [hh, mm, ss, isOver]);
 
   // 타이머
   useEffect(() => {

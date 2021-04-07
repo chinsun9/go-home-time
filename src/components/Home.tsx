@@ -56,11 +56,10 @@ function Home({ isDefault = false }: Props) {
 
     const { hour, min, sec } = convertS2HMS(diffSec);
 
-    console.log(diffSec);
+    // console.info(diffSec);
 
     // -43200초 === 12시간
     if (diffSec < 0 && diffSec > -43200) {
-      console.log(123);
       return (
         <Timer
           hh={Math.abs(hour)}
@@ -106,13 +105,12 @@ function Home({ isDefault = false }: Props) {
     }
   }, [flag, initTime, input]);
 
-  // 10분마다 시간 동기화
+  // 1분마다 시간 동기화
   useEffect(() => {
     const sto = setTimeout(() => {
-      console.log(`refresh`);
       setToggleState((prev) => !prev);
       setViewState(viewTimer());
-    }, 600000);
+    }, 60 * 1000);
 
     return () => {
       clearTimeout(sto);
