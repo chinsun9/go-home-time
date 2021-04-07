@@ -73,7 +73,7 @@ function Share() {
     let shareUrl = baseURL + time.replace(':', '');
     shareUrl =
       isEditAbleMsg && msg.length > 1
-        ? `${shareUrl}?m=${btoa(encodeURI(msg))}`
+        ? `${shareUrl}?m=${Buffer.from(msg, 'utf-8').toString('base64')}`
         : shareUrl;
     setShareLink(shareUrl);
   }, [time, msg, isEditAbleMsg]);

@@ -1,9 +1,13 @@
 import { createReducer } from 'typesafe-actions';
-import { SET_TIME } from './actions';
+import { SET_MSG, SET_TIME } from './actions';
 import { TimeAction } from './types';
 
 // 초깃값 설정
-const initialState: TimeState = { time: '1800', flag: false };
+const initialState: TimeState = {
+  time: '1800',
+  flag: false,
+  msg: `퇴근합시다!`,
+};
 
 const timeReducer = createReducer<TimeState, TimeAction>(initialState, {
   [SET_TIME]: (state, { payload: time }) => {
@@ -26,6 +30,9 @@ const timeReducer = createReducer<TimeState, TimeAction>(initialState, {
     }
 
     return { ...state, flag: true, time: newTime };
+  },
+  [SET_MSG]: (state, { payload: msg }) => {
+    return { ...state, msg };
   },
 });
 

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
-import { setTime } from '../modules/time';
+import { setMsg, setTime } from '../modules/time';
 
 const useTimeActions = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,14 @@ const useTimeActions = () => {
     [dispatch]
   );
 
-  return { initTime };
+  const initMsg = useCallback(
+    (msg: string) => {
+      dispatch(setMsg(msg));
+    },
+    [dispatch]
+  );
+
+  return { initTime, initMsg };
 };
 
 export default useTimeActions;

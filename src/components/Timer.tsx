@@ -1,6 +1,8 @@
 import './Timer.css';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import useTimeActions from '../hooks/useMyActions';
+import useTime from '../hooks/useMyState';
 
 type Props = {
   hh: number;
@@ -18,7 +20,8 @@ function Timer({ hh, mm, ss, isOver }: Props) {
   const [seconds, setSeconds] = useState(ss);
   const [isTimeOver, setIsTimeOver] = useState(isOver);
   const { location } = useHistory();
-  const [msg, setMsg] = useState('');
+  const { msg } = useTime();
+  const { initMsg } = useTimeActions();
 
   const setPadding = useCallback((value: number) => {
     return value.toString().padStart(2, '0');
@@ -26,16 +29,8 @@ function Timer({ hh, mm, ss, isOver }: Props) {
 
   // msg초기화
   useEffect(() => {
-    try {
-      setMsg(
-        location.search.length > 3
-          ? decodeURI(atob(location.search.substr(3)))
-          : `퇴근합시다!`
-      );
-    } catch (error) {
-      setMsg(`퇴근합시다! ~_~`);
-    }
-  }, [location.search]);
+    initMsg(Buffer.from(location.search.substr(3), 'base64').toString('utf-8'));
+  }, [initMsg, location.search]);
 
   // 새로 값 들어오면 초기화
   useEffect(() => {
