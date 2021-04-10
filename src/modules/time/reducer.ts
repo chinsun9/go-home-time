@@ -32,6 +32,8 @@ const timeReducer = createReducer<TimeState, TimeAction>(initialState, {
     return { ...state, flag: true, time: newTime };
   },
   [SET_MSG]: (state, { payload: msg }) => {
+    if (!msg) return state;
+
     return { ...state, msg };
   },
 });
