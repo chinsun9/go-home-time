@@ -17,7 +17,7 @@ type Props = {
 
 const HALF_DAY = 43200;
 
-function Home({ isDefault = false }: Props) {
+function Home({ isDefault }: Props) {
   const match = useRouteMatch<MatchParams>();
   const { input } = match?.params as MatchParams;
   const { initTime } = useTimeActions();
