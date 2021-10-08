@@ -26,9 +26,11 @@ function Home({ isDefault }: Props) {
   const [viewState, setViewState] = useState<JSX.Element>();
 
   const convertS2HMS = useCallback((seconds: number) => {
-    const hour = parseInt(`${seconds / 3600}`, 10);
-    const min = parseInt(`${(seconds % 3600) / 60}`, 10);
-    const sec = Math.floor(seconds % 60);
+    const duration = moment.duration(seconds, 'seconds');
+
+    const hour = duration.get('hours');
+    const min = duration.get('minutes');
+    const sec = duration.get('seconds');
 
     return { hour, min, sec };
   }, []);
