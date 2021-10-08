@@ -15,6 +15,8 @@ type Props = {
   isDefault?: boolean;
 };
 
+const HALF_DAY = 43200;
+
 function Home({ isDefault = false }: Props) {
   const match = useRouteMatch<MatchParams>();
   const { input } = match?.params as MatchParams;
@@ -56,10 +58,7 @@ function Home({ isDefault = false }: Props) {
 
     const { hour, min, sec } = convertS2HMS(diffSec);
 
-    // console.info(diffSec);
-
-    // -43200초 === 12시간
-    if (diffSec < 0 && diffSec > -43200) {
+    if (diffSec < 0 && diffSec + HALF_DAY > 0) {
       return (
         <Timer
           hh={Math.abs(hour)}
@@ -79,7 +78,7 @@ function Home({ isDefault = false }: Props) {
       return <Timer hh={hour2} mm={min2} ss={sec2} />;
     }
 
-    if (diffSec > 43200) {
+    if (diffSec > HALF_DAY) {
       // console.info('새벽에 근무하는 사람들을 위한..2');
 
       const diffSec2 = endTime.clone().add(-1, 'd').diff(now, 'seconds');
