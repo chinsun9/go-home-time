@@ -17,7 +17,7 @@ function App() {
           </Route>
 
           <Route exact path="/">
-            <Home isDefault />
+            <Home />
           </Route>
 
           <Route path="/:input">
