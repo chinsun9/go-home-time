@@ -2,6 +2,7 @@ import './Share.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { Power3, TimelineLite } from 'gsap';
 import CSSPlugin from 'gsap/CSSPlugin';
+import { useHistory } from 'react-router-dom';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const C = CSSPlugin;
@@ -9,6 +10,8 @@ const C = CSSPlugin;
 const baseURL = 'https://chinsun9.github.io/go-home-time/';
 
 function Share() {
+  const history = useHistory();
+  console.log({ history });
   const [shareLink, setShareLink] = useState(baseURL);
   const [isEditAbleMsg, setIsEditAbleMsg] = useState(false);
   const [isEditAbleTime, setIsEditAbleTime] = useState(false);
@@ -32,9 +35,9 @@ function Share() {
   ) => {
     e.preventDefault();
     const shareInputElement = inputRef.current;
+    if (!shareInputElement) return;
 
-    if (shareInputElement)
-      navigator.clipboard.writeText(shareInputElement.value);
+    navigator.clipboard.writeText(shareInputElement.value);
 
     // 모달 1초간 뛰우기
     const tl = new TimelineLite();
