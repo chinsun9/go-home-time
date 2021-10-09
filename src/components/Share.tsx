@@ -31,10 +31,10 @@ function Share() {
     e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     e.preventDefault();
-    const el = inputRef.current;
+    const shareInputElement = inputRef.current;
 
-    el?.select();
-    document.execCommand('copy');
+    if (shareInputElement)
+      navigator.clipboard.writeText(shareInputElement.value);
 
     // 모달 1초간 뛰우기
     const tl = new TimelineLite();
