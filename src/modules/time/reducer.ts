@@ -11,25 +11,21 @@ const initialState: TimeState = {
 
 const timeReducer = createReducer<TimeState, TimeAction>(initialState, {
   [SET_TIME]: (state, { payload: time }) => {
-    // console.info(`i'm reducer`);
-    let newTime = time;
     const numberTime = Number(time);
-    const stringTime = numberTime.toString();
 
-    if (
+    const isInvalidTime =
       Number.isNaN(numberTime) ||
       time.length > 4 ||
       numberTime > 2400 ||
-      numberTime < 0
-    ) {
-      return { ...state, flag: true, time: 'invalid' };
-    }
+      numberTime < 0;
 
-    if (time.length < 4) {
-      newTime = `${stringTime.padEnd(4, '0')}`;
-    }
-
-    return { ...state, flag: true, time: newTime };
+    return {
+      ...state,
+      flag: true,
+      time: isInvalidTime
+        ? 'invalid'
+        : `${time.padStart(2, '0').padEnd(4, '0')}`,
+    };
   },
   [SET_MSG]: (state, { payload: msg }) => {
     if (!msg) return state;
