@@ -65,5 +65,9 @@
     "gh-pages": "^3.1.0",
     "prettier": "^2.2.1"
   },
-  "homepage": "https://chinsun9.github.io/go-home-time"
+  "homepage": "https://chinsun9.github.io/go-home-time",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chinsun9/go-home-time.git"
+  }
 }
