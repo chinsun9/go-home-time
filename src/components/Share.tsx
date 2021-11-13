@@ -37,7 +37,7 @@ function Share() {
     const shareInputElement = inputRef.current;
     if (!shareInputElement) return;
 
-    navigator.clipboard.writeText(shareInputElement.value);
+    navigator.clipboard.writeText(shareLink);
 
     // 모달 1초간 뛰우기
     const tl = new TimelineLite();
@@ -88,7 +88,7 @@ function Share() {
         <input
           ref={inputRef}
           type="text"
-          value={shareLink}
+          value={shareLink.substr(baseURL.length)}
           onClick={onLinkClickHandler}
           spellCheck={false}
           readOnly
