@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import About from './components/About';
+import Start from './components/Start';
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,10 @@ function App() {
 
           <Route exact path="/">
             <Home />
+          </Route>
+
+          <Route path="/start/:input">
+            <Start />
           </Route>
 
           <Route path="/:input">
