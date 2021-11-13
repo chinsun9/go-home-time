@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Header from './components/Header';
@@ -7,6 +7,19 @@ import Footer from './components/Footer';
 import About from './components/About';
 
 function App() {
+  useEffect(() => {
+    if (Notification.permission === 'granted') return;
+
+    Notification.requestPermission((permission) => {
+      if (permission === 'denied') return;
+
+      // eslint-disable-next-line no-new
+      new Notification('퇴근시간이 되면 알려드립니다!', {
+        silent: true,
+      });
+    });
+  }, []);
+
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
