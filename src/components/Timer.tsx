@@ -46,6 +46,10 @@ function Timer({ duration: initialDuration, isOver }: Props) {
 
       if (duration.asSeconds() <= 0) {
         console.log('go home');
+
+        // eslint-disable-next-line no-new
+        if (Notification.permission === 'granted') new Notification(msg);
+
         setIsTimeOver(true);
         return;
       }
@@ -60,7 +64,7 @@ function Timer({ duration: initialDuration, isOver }: Props) {
     return () => {
       if (countdown) clearTimeout(countdown);
     };
-  }, [duration, isTimeOver]);
+  }, [duration, isTimeOver, msg]);
 
   const { hour, min, sec } = durationToHMS(duration);
 
