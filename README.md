@@ -16,6 +16,11 @@
 - url param을 통해 목표 시각 세팅
 - 목표 시각이 지나면 퇴근하라는 메시지를 뛰움
 
+### start/n 페이지
+
+- 출근한 시간으로부터 n시간 후 퇴근 시간 알림
+- https://chinsun9.github.io/go-home-time/start/9
+
 ### about 페이지
 
 - 링크 공유 기능
@@ -64,8 +69,8 @@ yarn add gh-pages
 - https://github.com/greensock/GSAP/issues/285#issuecomment-433729632
 
 ```tsx Share.tsx
-import { Power3, TimelineLite } from "gsap";
-import CSSPlugin from "gsap/CSSPlugin"; // 추가
+import { Power3, TimelineLite } from 'gsap';
+import CSSPlugin from 'gsap/CSSPlugin'; // 추가
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const C = CSSPlugin; // 추가
