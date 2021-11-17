@@ -49,9 +49,7 @@ function Timer({ duration: initialDuration, isOver }: Props) {
 
       if (seconds <= 0) {
         console.log('go home');
-
-        if (Notification.permission === 'granted') new Notification(msg);
-
+        new Notification(msg);
         setIsTimeOver(true);
         return;
       }
@@ -59,8 +57,7 @@ function Timer({ duration: initialDuration, isOver }: Props) {
       // 3분전 알림
       if (advanceNotice.current && seconds <= 60 * 3 && seconds >= 60 * 2) {
         advanceNotice.current = false;
-        if (Notification.permission === 'granted')
-          new Notification('퇴근 3분전! 짐을 싸세요!');
+        new Notification('퇴근 3분 전! 짐을 싸세요!');
       }
 
       countdown = setTimeout(() => {
