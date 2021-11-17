@@ -1,5 +1,6 @@
+/* eslint-disable no-new */
 import './Timer.css';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Duration } from 'moment';
 import useTimeActions from '../hooks/useMyActions';
@@ -22,6 +23,7 @@ function Timer({ duration: initialDuration, isOver }: Props) {
   const { location } = useHistory();
   const { msg } = useTime();
   const { initMsg } = useTimeActions();
+  const advanceNotice = useRef(true);
 
   const padNumber = useCallback((value: number) => {
     return value.toString().padStart(2, '0');
@@ -43,15 +45,22 @@ function Timer({ duration: initialDuration, isOver }: Props) {
 
     const run = () => {
       if (isTimeOver) return;
+      const seconds = duration.asSeconds();
 
-      if (duration.asSeconds() <= 0) {
+      if (seconds <= 0) {
         console.log('go home');
 
-        // eslint-disable-next-line no-new
         if (Notification.permission === 'granted') new Notification(msg);
 
         setIsTimeOver(true);
         return;
+      }
+
+      // 3분전 알림
+      if (advanceNotice.current && seconds <= 60 * 3 && seconds >= 60 * 2) {
+        advanceNotice.current = false;
+        if (Notification.permission === 'granted')
+          new Notification('퇴근 3분전! 짐을 싸세요!');
       }
 
       countdown = setTimeout(() => {
