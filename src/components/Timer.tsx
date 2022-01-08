@@ -49,6 +49,8 @@ function Timer({ duration: initialDuration, isOver }: Props) {
 
       if (seconds <= 0) {
         console.log('go home');
+        if (!('Notification' in window)) return;
+
         new Notification(msg);
         setIsTimeOver(true);
         return;

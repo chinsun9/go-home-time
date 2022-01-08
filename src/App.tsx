@@ -9,6 +9,8 @@ import Start from './components/Start';
 
 function App() {
   useEffect(() => {
+    if (!('Notification' in window)) return;
+
     if (Notification.permission === 'granted') return;
 
     Notification.requestPermission((permission) => {
